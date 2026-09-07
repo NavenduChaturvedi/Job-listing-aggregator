@@ -6,7 +6,12 @@
 
 A command-line tool that scrapes remote job listings from three sources,
 normalises them into one shape, removes duplicates, filters by keyword and
-location, and exports clean **CSV + JSON** with a short stats summary.
+location, and exports clean **CSV + JSON** with a short stats summary. Ships
+with an optional web dashboard ([deploy it free on Render](#deploy-it-render)).
+
+<!-- Live demo: add the Render URL here once deployed -->
+
+
 
 | Source | Format it exposes | Adapter |
 |---|---|---|
@@ -150,9 +155,9 @@ When a source is unreachable the run still completes:
 
 ## Web dashboard (optional)
 
-A small local Flask dashboard over `job_aggregator.runner`: a search form, the
-same stats strip, a results table, and CSV / JSON download buttons. Results are
-cached for a few minutes so downloading right after a search does not re-scrape.
+A small Flask dashboard over `job_aggregator.runner`: a search form, the same
+stats strip, a results table, and CSV / JSON download buttons. Results are
+cached so downloading right after a search does not re-scrape.
 
 ```bash
 pip install -r requirements-web.txt
@@ -160,6 +165,23 @@ python -m webapp          # http://127.0.0.1:5001
 ```
 
 ![Dashboard](docs/dashboard.png)
+
+### Deploy it (Render)
+
+The repo has a [`render.yaml`](render.yaml) Blueprint. On [Render](https://render.com):
+**New +** → **Blueprint** → point it at this repo → **Apply**. That creates one
+free web service running `gunicorn`; the public URL is live in a couple of
+minutes (free instances sleep when idle and cold-start in ~1 min).
+
+The Blueprint sets three env vars that matter for a shared URL:
+
+| var | value | why |
+|---|---|---|
+| `WEB_CACHE_TTL` | `1800` | reuse a search result for 30 min before scraping again |
+| `WEB_SCRAPE_MIN_INTERVAL` | `20` | never run two live scrapes within 20 s; serve stale cache instead |
+| `REQUEST_DELAY` | `1.5` | delay between individual requests |
+
+Locally none of these are set, so `python -m webapp` always scrapes fresh.
 
 ---
 
@@ -180,6 +202,7 @@ job_aggregator/
     export.py               CSV / JSON serialisation
     runner.py               orchestration for the CLI
 webapp/                      optional Flask dashboard (see requirements-web.txt)
+render.yaml                  Render Blueprint for deploying the dashboard
 tests/                       offline tests + trimmed fixtures
 sample_output/               committed example run + exports
 ```

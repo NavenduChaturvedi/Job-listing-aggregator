@@ -1,4 +1,9 @@
 # Web dashboard extras. The CLI does not need these.
 #   pip install -r requirements-web.txt
+#
+# Local dev uses Flask's built-in server (`python -m webapp`).
+# gunicorn is the production server used by the Render deploy (render.yaml);
+# it installs on every platform but only runs on Linux/macOS.
 -r requirements.txt
 flask>=3.0
+gunicorn>=21.2

@@ -13,6 +13,8 @@ after a search does not scrape every board again.
 
 from __future__ import annotations
 
+import os
+import threading
 import time
 from urllib.parse import urlencode
 
@@ -22,8 +24,19 @@ from job_aggregator import export
 from job_aggregator.runner import aggregate
 from job_aggregator.sources import REGISTRY
 
+# How long a search result is reused before we scrape again. Longer on a public
+# deployment (set WEB_CACHE_TTL) so a shared URL does not re-scrape per visitor.
+_CACHE_TTL = int(os.environ.get("WEB_CACHE_TTL", "300"))
+
+# Minimum seconds between two *live* scrapes, across all visitors. 0 = no limit
+# (fine locally). Set WEB_SCRAPE_MIN_INTERVAL on a public deploy to shield the
+# upstream boards: while inside the window we serve a stale cached result if we
+# have one instead of scraping again.
+_SCRAPE_MIN_INTERVAL = float(os.environ.get("WEB_SCRAPE_MIN_INTERVAL", "0"))
+
 _CACHE: dict[tuple, tuple[float, object]] = {}
-_CACHE_TTL = 300  # seconds
+_scrape_lock = threading.Lock()
+_last_scrape_at = 0.0
 
 
 def create_app() -> Flask:
@@ -91,22 +104,43 @@ def _cache_key(query: dict) -> tuple:
     )
 
 
-def _aggregate_cached(query: dict):
-    key = _cache_key(query)
-    now = time.time()
+def _cache_get(key: tuple):
     hit = _CACHE.get(key)
-    if hit and now - hit[0] < _CACHE_TTL:
+    if hit and time.time() - hit[0] < _CACHE_TTL:
         return hit[1]
+    return None
 
-    result = aggregate(
-        source_names=query["sources"] or None,
-        keyword=query["keyword"] or None,
-        location=query["location"] or None,
-        max_age_days=query["max_age_days"],
-        limit=query["limit"],
-    )
-    _CACHE[key] = (now, result)
-    return result
+
+def _aggregate_cached(query: dict):
+    global _last_scrape_at
+    key = _cache_key(query)
+
+    fresh = _cache_get(key)
+    if fresh is not None:
+        return fresh
+
+    # Serialise scraping: concurrent visitors asking the same thing wait for the
+    # first one instead of all hitting the boards at once.
+    with _scrape_lock:
+        fresh = _cache_get(key)
+        if fresh is not None:
+            return fresh
+
+        if _SCRAPE_MIN_INTERVAL and time.time() - _last_scrape_at < _SCRAPE_MIN_INTERVAL:
+            stale = _CACHE.get(key)
+            if stale is not None:
+                return stale[1]
+
+        result = aggregate(
+            source_names=query["sources"] or None,
+            keyword=query["keyword"] or None,
+            location=query["location"] or None,
+            max_age_days=query["max_age_days"],
+            limit=query["limit"],
+        )
+        _last_scrape_at = time.time()
+        _CACHE[key] = (_last_scrape_at, result)
+        return result
 
 
 # --------------------------------------------------------------------------

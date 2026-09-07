@@ -194,3 +194,29 @@ the CSV / JSON buttons use the same `export` functions as the CLI.
   minutes, keyed by the query, so clicking "Download CSV" right after a search
   serves the already-scraped data instead of hitting all three boards again.
 - Server-rendered Jinja + plain CSS, no JS framework - enough for a local tool.
+
+---
+
+## 12. Deploying the dashboard (Render)
+
+**Decision:** ship a `render.yaml` Blueprint for a single free web service on
+Render, running `gunicorn` with **one worker and four threads**.
+
+**Why:**
+
+- **Render free tier** is enough for a portfolio demo and needs no card. The
+  one real cost - instances sleep after ~15 min idle and cold-start in ~1 min -
+  is acceptable for a link someone clicks occasionally.
+- **One worker** keeps the in-process cache and the scrape lock actually
+  effective (multiple workers would each have their own cache and could scrape
+  in parallel). Four **threads** still let the health check and cached requests
+  respond while one thread is mid-scrape.
+- **Two extra env vars for the public case** (`WEB_CACHE_TTL=1800`,
+  `WEB_SCRAPE_MIN_INTERVAL=20`): a shared URL must not turn every visitor into a
+  fresh triple-scrape of the job boards. Inside the interval the app serves a
+  stale cached result rather than scraping again. Locally these are unset, so
+  the dev server always scrapes fresh.
+- `gunicorn` lives in `requirements-web.txt`, not the core `requirements.txt` -
+  the scraper library stays server-free.
+- The `/` health check is cheap: the index route only scrapes when it is given
+  query parameters, so an empty `GET /` just renders the form.

@@ -1,0 +1,37 @@
+# Render Blueprint - https://render.com/docs/blueprint-spec
+#
+# One free web service running the dashboard with gunicorn. Deploy it by
+# pushing this repo and creating a Blueprint from it in the Render dashboard
+# (New + -> Blueprint), or with the Render CLI.
+#
+# Free instances sleep after ~15 min idle and cold-start in ~1 min - fine for a
+# portfolio demo.
+
+services:
+  - type: web
+    name: job-listing-aggregator
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: pip install -r requirements-web.txt
+    startCommand: >-
+      gunicorn "webapp.app:app"
+      --bind "0.0.0.0:$PORT"
+      --workers 1
+      --threads 4
+      --timeout 120
+    healthCheckPath: /
+    envVars:
+      # Reuse a search result for 30 min before scraping again.
+      - key: WEB_CACHE_TTL
+        value: "1800"
+      # Never run two live scrapes within 20 s of each other; serve stale
+      # cache instead. Protects the upstream boards on a public URL.
+      - key: WEB_SCRAPE_MIN_INTERVAL
+        value: "20"
+      # Politeness delay between requests (seconds).
+      - key: REQUEST_DELAY
+        value: "1.5"
+      - key: PYTHON_VERSION
+        value: "3.12"
