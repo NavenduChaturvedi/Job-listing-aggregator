@@ -12,10 +12,7 @@ from .remoteok import RemoteOkSource
 from .weworkremotely import WeWorkRemotelySource
 
 # name -> adapter instance
-REGISTRY = {
-    src.name: src
-    for src in (RemoteOkSource(), WeWorkRemotelySource(), PythonOrgSource())
-}
+REGISTRY = {src.name: src for src in (RemoteOkSource(), WeWorkRemotelySource(), PythonOrgSource())}
 
 
 def get_sources(names: list[str] | None) -> list:
@@ -27,7 +24,5 @@ def get_sources(names: list[str] | None) -> list:
         try:
             chosen.append(REGISTRY[name])
         except KeyError:
-            raise ValueError(
-                f"unknown source {name!r}; available: {', '.join(REGISTRY)}"
-            )
+            raise ValueError(f"unknown source {name!r}; available: {', '.join(REGISTRY)}") from None
     return chosen

@@ -58,7 +58,7 @@ def _text(item, tag: str) -> str:
 
 
 def _split_company_title(raw: str) -> tuple[str, str]:
-    """"Lemon.io: Senior Java & React Developer" -> ("Lemon.io", "Senior ...").
+    """ "Lemon.io: Senior Java & React Developer" -> ("Lemon.io", "Senior ...").
 
     Falls back to ("", raw) when there is no colon.
     """

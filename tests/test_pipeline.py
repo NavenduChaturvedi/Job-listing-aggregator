@@ -6,8 +6,14 @@ from job_aggregator.models import Job
 
 def _job(**kw) -> Job:
     base = dict(
-        source="s", title="t", company="c", location="Remote",
-        url="", posted_date="2026-09-01", tags=[], description="",
+        source="s",
+        title="t",
+        company="c",
+        location="Remote",
+        url="",
+        posted_date="2026-09-01",
+        tags=[],
+        description="",
     )
     base.update(kw)
     return Job(**base)
@@ -16,7 +22,7 @@ def _job(**kw) -> Job:
 def test_dedup_by_url_ignores_scheme_and_trailing_slash():
     jobs = [
         _job(title="Job One A", url="https://x.com/jobs/1"),
-        _job(title="Job One B", url="http://x.com/jobs/1/"),   # same URL, scheme/slash differ
+        _job(title="Job One B", url="http://x.com/jobs/1/"),  # same URL, scheme/slash differ
         _job(title="Job Two", url="https://x.com/jobs/2"),
     ]
     df, removed = pipeline.deduplicate(pipeline.to_dataframe(jobs))
@@ -27,7 +33,12 @@ def test_dedup_by_url_ignores_scheme_and_trailing_slash():
 def test_dedup_by_title_and_company_across_sources():
     jobs = [
         _job(source="remoteok", title="Senior Python Dev", company="Acme", url="https://a.com/1"),
-        _job(source="weworkremotely", title="senior python dev", company="ACME!", url="https://b.com/2"),
+        _job(
+            source="weworkremotely",
+            title="senior python dev",
+            company="ACME!",
+            url="https://b.com/2",
+        ),
     ]
     df, removed = pipeline.deduplicate(pipeline.to_dataframe(jobs))
     assert removed == 1

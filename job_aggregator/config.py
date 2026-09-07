@@ -38,6 +38,5 @@ MAX_RETRIES = _int("MAX_RETRIES", 3)
 # Sent with every request so site owners can see who we are.
 USER_AGENT = os.environ.get(
     "USER_AGENT",
-    "job-aggregator-bot/1.0 "
-    "(+https://github.com/NavenduChaturvedi/Job-listing-aggregator)",
+    "job-aggregator-bot/1.0 (+https://github.com/NavenduChaturvedi/Job-listing-aggregator)",
 )

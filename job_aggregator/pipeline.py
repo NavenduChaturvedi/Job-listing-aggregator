@@ -89,8 +89,10 @@ def filter_jobs(
         # posting, which would make the keyword filter match everything.
         haystack = (
             df["title"].fillna("")
-            + " " + df["company"].fillna("")
-            + " " + df["description"].fillna("")
+            + " "
+            + df["company"].fillna("")
+            + " "
+            + df["description"].fillna("")
         ).str.lower()
         for term in keyword.lower().split():
             mask &= haystack.str.contains(_re_escape(term), regex=True)
@@ -99,9 +101,7 @@ def filter_jobs(
         loc_col = df["location"].fillna("").str.lower()
         wanted = location.lower().strip()
         if any(w in wanted for w in _REMOTE_WORDS):
-            mask &= loc_col.apply(
-                lambda v: any(w in v for w in _REMOTE_WORDS) or v == ""
-            )
+            mask &= loc_col.apply(lambda v: any(w in v for w in _REMOTE_WORDS) or v == "")
         else:
             mask &= loc_col.str.contains(_re_escape(wanted), regex=True)
 
@@ -149,9 +149,7 @@ def sort_for_output(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df
     # newest first; rows without a date sink to the bottom
-    return df.sort_values(
-        "posted_date", ascending=False, na_position="last"
-    ).reset_index(drop=True)
+    return df.sort_values("posted_date", ascending=False, na_position="last").reset_index(drop=True)
 
 
 def _re_escape(text: str) -> str:

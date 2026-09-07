@@ -14,9 +14,7 @@ import pandas as pd
 
 def write_csv(df: pd.DataFrame, path: str) -> str:
     out = df.copy()
-    out["tags"] = out["tags"].apply(
-        lambda t: "; ".join(t) if isinstance(t, list) else (t or "")
-    )
+    out["tags"] = out["tags"].apply(lambda t: "; ".join(t) if isinstance(t, list) else (t or ""))
     _ensure_parent(path)
     out.to_csv(path, index=False)
     return path

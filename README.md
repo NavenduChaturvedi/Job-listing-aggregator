@@ -1,5 +1,9 @@
 # Job Listing Aggregator
 
+[![CI](https://github.com/NavenduChaturvedi/Job-listing-aggregator/actions/workflows/ci.yml/badge.svg)](https://github.com/NavenduChaturvedi/Job-listing-aggregator/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 A command-line tool that scrapes remote job listings from three sources,
 normalises them into one shape, removes duplicates, filters by keyword and
 location, and exports clean **CSV + JSON** with a short stats summary.
@@ -181,3 +185,7 @@ keep a rolling export, e.g. daily at 08:00:
 ```
 
 See [DECISIONS.md](DECISIONS.md) for the reasoning behind every choice.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

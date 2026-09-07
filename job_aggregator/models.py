@@ -10,7 +10,6 @@ import re
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
-from typing import Optional
 from urllib.parse import urlparse, urlunparse
 
 from bs4 import BeautifulSoup
@@ -25,7 +24,7 @@ class Job:
     company: str
     location: str
     url: str
-    posted_date: Optional[str]  # ISO date "YYYY-MM-DD", or None if unknown
+    posted_date: str | None  # ISO date "YYYY-MM-DD", or None if unknown
     tags: list[str] = field(default_factory=list)
     description: str = ""  # short plain-text snippet, not the full posting
 
@@ -58,7 +57,7 @@ def normalize_url(url: str) -> str:
     return urlunparse(("", netloc, path, "", "", "")).lstrip("/")
 
 
-def clean_text(raw: str, *, limit: Optional[int] = None) -> str:
+def clean_text(raw: str, *, limit: int | None = None) -> str:
     """Strip HTML tags and collapse whitespace. Optionally truncate.
 
     Sources hand us description fields that range from plain text to fully
@@ -73,7 +72,7 @@ def clean_text(raw: str, *, limit: Optional[int] = None) -> str:
     return text
 
 
-def parse_date(raw: Optional[str]) -> Optional[str]:
+def parse_date(raw: str | None) -> str | None:
     """Best-effort conversion of a date string to an ISO ``YYYY-MM-DD``.
 
     Accepts ISO-8601 (RemoteOK, python.org ``<time datetime>``) and RFC-822
@@ -98,7 +97,7 @@ def parse_date(raw: Optional[str]) -> Optional[str]:
         return None
 
 
-def days_old(iso_date: Optional[str]) -> Optional[int]:
+def days_old(iso_date: str | None) -> int | None:
     if not isinstance(iso_date, str) or not iso_date:
         return None
     try:

@@ -42,7 +42,7 @@ def test_remoteok_parses_and_skips_non_jobs():
     first = jobs[0]
     assert first.title == "Senior Python Developer"
     assert first.company == "Acme Corp"
-    assert first.location == "Remote"          # empty string -> "Remote"
+    assert first.location == "Remote"  # empty string -> "Remote"
     assert first.posted_date == "2026-09-05"
     assert "python" in first.tags
     assert first.source == "remoteok"
