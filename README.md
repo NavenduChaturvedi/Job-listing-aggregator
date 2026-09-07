@@ -148,6 +148,21 @@ When a source is unreachable the run still completes:
 
 ---
 
+## Web dashboard (optional)
+
+A small local Flask dashboard over `job_aggregator.runner`: a search form, the
+same stats strip, a results table, and CSV / JSON download buttons. Results are
+cached for a few minutes so downloading right after a search does not re-scrape.
+
+```bash
+pip install -r requirements-web.txt
+python -m webapp          # http://127.0.0.1:5001
+```
+
+![Dashboard](docs/dashboard.png)
+
+---
+
 ## Project layout
 
 ```
@@ -162,8 +177,9 @@ job_aggregator/
         weworkremotely.py   RSS adapter
         pythonorg.py        HTML adapter
     pipeline.py             dataframe assembly, filter, dedup, stats
-    export.py               CSV / JSON writers
+    export.py               CSV / JSON serialisation
     runner.py               orchestration for the CLI
+webapp/                      optional Flask dashboard (see requirements-web.txt)
 tests/                       offline tests + trimmed fixtures
 sample_output/               committed example run + exports
 ```

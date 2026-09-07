@@ -1,0 +1,96 @@
+/* Job Listing Aggregator dashboard - off-white + charcoal, no gradients, no motion. */
+
+:root {
+  --bg: #f4f3ef;
+  --surface: #fbfaf7;
+  --ink: #2b2b2b;
+  --ink-soft: #63615c;
+  --line: #e2ded4;
+  --line-strong: #cdc8bb;
+  --accent: #2b2b2b;
+  --accent-ink: #fbfaf7;
+  --good-bg: #e8efe8;
+  --warn-bg: #f1ebdd;
+  --bad-bg: #f1e2e0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+a:hover { color: var(--ink-soft); }
+
+.wrap { max-width: 1040px; margin: 0 auto; padding: 32px 20px 64px; }
+
+header.site {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 14px;
+  margin-bottom: 24px;
+}
+header.site h1 { font-size: 18px; letter-spacing: 0.02em; margin: 0; font-weight: 600; }
+header.site .muted { color: var(--ink-soft); font-size: 13px; }
+
+h2 { font-size: 15px; font-weight: 600; margin: 28px 0 12px; }
+
+.card { background: var(--surface); border: 1px solid var(--line); padding: 18px; }
+
+/* ---- search form ---- */
+form.search .field-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 12px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.04em; }
+input[type=text], input[type=number] {
+  font: inherit; padding: 7px 9px;
+  border: 1px solid var(--line-strong); background: #fff; color: var(--ink);
+  min-width: 160px;
+}
+input:focus { outline: 2px solid var(--ink); outline-offset: -1px; }
+
+.sources { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; }
+.sources label { display: flex; gap: 6px; align-items: center; font-size: 13px; text-transform: none; letter-spacing: 0; color: var(--ink); }
+
+button {
+  font: inherit; font-size: 14px; padding: 7px 14px;
+  border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink);
+  cursor: pointer;
+}
+button:hover { background: #444; }
+.btnrow { display: flex; gap: 10px; align-items: center; margin-top: 14px; }
+.btnrow a.button {
+  font-size: 14px; padding: 7px 14px; border: 1px solid var(--line-strong);
+  background: transparent; color: var(--ink); text-decoration: none;
+}
+.btnrow a.button:hover { background: #ebe8e0; }
+
+/* ---- stats strip ---- */
+.stats { display: flex; flex-wrap: wrap; gap: 0; width: max-content; max-width: 100%; border: 1px solid var(--line); background: var(--surface); margin: 4px 0 6px; }
+.stats div { padding: 12px 18px; border-right: 1px solid var(--line); }
+.stats div:last-child { border-right: none; }
+.stats .n { font-size: 20px; font-variant-numeric: tabular-nums; }
+.stats .k { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); }
+.source-note { font-size: 13px; color: var(--ink-soft); margin: 2px 0 0; }
+.source-note .fail { color: #8c3b3b; }
+
+/* ---- results table ---- */
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--ink-soft); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+tr:last-child td { border-bottom: none; }
+td.date { white-space: nowrap; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+
+.src {
+  display: inline-block; font-size: 11px; letter-spacing: 0.03em;
+  padding: 2px 7px; border: 1px solid var(--line-strong); background: #efece4; color: var(--ink-soft);
+}
+.title-cell .company { color: var(--ink-soft); font-size: 13px; }
+.title-cell .loc { color: var(--ink-soft); font-size: 12px; }
+
+.empty { color: var(--ink-soft); font-size: 14px; padding: 10px 0; }

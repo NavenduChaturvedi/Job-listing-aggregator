@@ -175,3 +175,22 @@ live job boards would be slow and would break whenever a listing rolls off the
 feed. The fixtures are trimmed real payloads, so they still catch the fiddly
 bits (the RSS "Company: Role" split, python.org's company-after-`<br/>`,
 skipping RemoteOK's legal-notice element, `http`/`https` dedup).
+
+---
+
+## 11. The web dashboard is an optional, logic-free layer
+
+**Decision:** `webapp/` is a small Flask app in its own optional dependency
+(`requirements-web.txt`). It calls `runner.aggregate()` and renders the result;
+the CSV / JSON buttons use the same `export` functions as the CLI.
+
+**Why:**
+
+- The scraper stays a dependency-light CLI; Flask is only pulled in if you want
+  the UI.
+- No logic in `webapp/` means the dashboard and the CLI can't diverge, and the
+  existing pipeline tests still cover everything that matters.
+- One extra touch the CLI doesn't need: results are cached in-process for a few
+  minutes, keyed by the query, so clicking "Download CSV" right after a search
+  serves the already-scraped data instead of hitting all three boards again.
+- Server-rendered Jinja + plain CSS, no JS framework - enough for a local tool.

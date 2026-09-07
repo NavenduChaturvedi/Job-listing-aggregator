@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form class="search card" method="get" action="{{ url_for('index') }}">
+    <div class="field-row">
+      <div class="field" style="flex:1 1 240px">
+        <label for="keyword">Keyword</label>
+        <input type="text" id="keyword" name="keyword" value="{{ query.keyword }}"
+               placeholder="python developer" style="width:100%">
+      </div>
+      <div class="field">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" value="{{ query.location }}" placeholder="remote">
+      </div>
+      <div class="field">
+        <label for="max_age_days">Max age (days)</label>
+        <input type="number" id="max_age_days" name="max_age_days" min="1"
+               value="{{ query.max_age_days if query.max_age_days is not none }}" placeholder="any">
+      </div>
+      <div class="field">
+        <label for="limit">Limit</label>
+        <input type="number" id="limit" name="limit" min="1"
+               value="{{ query.limit if query.limit is not none }}" placeholder="all">
+      </div>
+    </div>
+
+    <div class="sources">
+      {% for name, src in sources.items() %}
+        <label>
+          <input type="checkbox" name="source" value="{{ name }}"
+                 {{ 'checked' if (not query.sources) or (name in query.sources) }}>
+          {{ src.label }}
+        </label>
+      {% endfor %}
+    </div>
+
+    <div class="btnrow">
+      <button type="submit">Search</button>
+      {% if result is not none and rows %}
+        <a class="button" href="{{ url_for('export_csv') }}?{{ querystring }}">Download CSV</a>
+        <a class="button" href="{{ url_for('export_json') }}?{{ querystring }}">Download JSON</a>
+      {% endif %}
+    </div>
+  </form>
+
+  {% if result is not none %}
+    <div class="stats">
+      <div><div class="n">{{ result.stats.scraped }}</div><div class="k">scraped</div></div>
+      <div><div class="n">{{ result.stats.after_filter }}</div><div class="k">matched</div></div>
+      <div><div class="n">{{ result.stats.duplicates_removed }}</div><div class="k">duplicates removed</div></div>
+      <div><div class="n">{{ result.stats.final }}</div><div class="k">unique</div></div>
+    </div>
+    <p class="source-note">
+      {% for name, count in result.stats.per_source.items() %}
+        {{ name }}: {{ count }}{% if not loop.last %} &nbsp;·&nbsp; {% endif %}
+      {% endfor %}
+      {% for name, err in result.stats.errors.items() %}
+        &nbsp;·&nbsp; <span class="fail">{{ name }}: failed ({{ err }})</span>
+      {% endfor %}
+    </p>
+
+    <h2>Results</h2>
+    {% if rows %}
+    <div class="card" style="padding:0">
+      <table>
+        <thead>
+          <tr><th>Posted</th><th>Role</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+        {% for r in rows %}
+          <tr>
+            <td class="date">{{ r.posted_date or "—" }}</td>
+            <td class="title-cell">
+              <a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.title }}</a>
+              <div class="company">{{ r.company }}</div>
+              <div class="loc">{{ r.location }}</div>
+            </td>
+            <td><span class="src">{{ r.source }}</span></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="empty">No listings matched. Try a broader keyword or drop the location filter.</p>
+    {% endif %}
+  {% else %}
+    <p class="empty" style="margin-top:20px">
+      Enter a keyword and/or location above and hit Search. Scraping the three
+      boards takes a few seconds.
+    </p>
+  {% endif %}
+{% endblock %}
