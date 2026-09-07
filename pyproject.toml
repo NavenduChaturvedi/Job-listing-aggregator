@@ -13,6 +13,9 @@ dependencies = [
     "pandas>=2.1",
 ]
 
+[project.urls]
+Repository = "https://github.com/NavenduChaturvedi/Job-listing-aggregator"
+
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "ruff>=0.6"]
 
