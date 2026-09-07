@@ -7,9 +7,10 @@
 A command-line tool that scrapes remote job listings from three sources,
 normalises them into one shape, removes duplicates, filters by keyword and
 location, and exports clean **CSV + JSON** with a short stats summary. Ships
-with an optional web dashboard ([deploy it free on Render](#deploy-it-render)).
+with an optional web dashboard.
 
-<!-- Live demo: add the Render URL here once deployed -->
+**Live demo:** https://job-listing-aggregator-qg70.onrender.com
+*(free Render instance — the first request after it has been idle takes ~1 min to wake)*
 
 
 
@@ -168,10 +169,12 @@ python -m webapp          # http://127.0.0.1:5001
 
 ### Deploy it (Render)
 
-The repo has a [`render.yaml`](render.yaml) Blueprint. On [Render](https://render.com):
-**New +** → **Blueprint** → point it at this repo → **Apply**. That creates one
-free web service running `gunicorn`; the public URL is live in a couple of
-minutes (free instances sleep when idle and cold-start in ~1 min).
+The [live demo](https://job-listing-aggregator-qg70.onrender.com) runs on
+Render's free tier from the [`render.yaml`](render.yaml) Blueprint in this repo.
+To deploy your own: on [Render](https://render.com), **New +** → **Blueprint** →
+point it at your fork → **Apply**. That creates one free web service running
+`gunicorn`; the public URL is live in a couple of minutes (free instances sleep
+when idle and cold-start in ~1 min).
 
 The Blueprint sets three env vars that matter for a shared URL:
 
