@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss">
+  <channel>
+    <title>We Work Remotely</title>
+    <link>https://weworkremotely.com/remote-jobs.rss</link>
+    <item>
+      <title>Acme Corp: Senior Python Developer</title>
+      <region>Anywhere in the World</region>
+      <category>Back-End Programming</category>
+      <type>Full-Time</type>
+      <description>&lt;p&gt;Build APIs with Python and Django.&lt;/p&gt;</description>
+      <pubDate>Mon, 07 Sep 2026 14:09:46 +0000</pubDate>
+      <guid>https://weworkremotely.com/remote-jobs/acme-corp-senior-python-developer</guid>
+      <link>https://weworkremotely.com/remote-jobs/acme-corp-senior-python-developer</link>
+    </item>
+    <item>
+      <title>Design Studio Frontend Wizard</title>
+      <region>USA Only</region>
+      <category>Front-End Programming</category>
+      <description>No colon in this title.</description>
+      <pubDate>Sun, 06 Sep 2026 09:00:00 +0000</pubDate>
+      <link>https://weworkremotely.com/remote-jobs/design-studio-frontend-wizard</link>
+    </item>
+  </channel>
+</rss>

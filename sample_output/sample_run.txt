@@ -1,0 +1,59 @@
+Scraping sources...
+  RemoteOK: 100 listings
+  We Work Remotely: 91 listings
+  python.org jobs: 25 listings
+
+Sources:
+  remoteok        : 100 listings
+  weworkremotely  : 91 listings
+  pythonorg       : 25 listings
+
+216 listings scraped
+32 listings matching keyword "engineer" and location "remote"
+3 duplicates removed
+20 unique listings
+
+Wrote sample_output\jobs.csv
+Wrote sample_output\jobs.json
+
+Top 20 of 20:
+  [2026-09-07] Director of Production Engineering @ Legion (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/legion-director-of-production-engineering
+  [2026-09-05] AEM Developer @ Vonage (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/vonage-aem-developer
+  [2026-09-05] Engineering Manager, Notifications @ Discord (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/discord-engineering-manager-notifications
+  [2026-09-05] AEM and Adobe Target Architect @ Vonage (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/vonage-aem-and-adobe-target-architect
+  [2026-09-04] Software Engineering Manager @ LawnStarter (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/lawnstarter-software-engineering-manager-6
+  [2026-09-04] Senior Solutions Engineer- LATAM @ Fin (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/fin-senior-solutions-engineer-latam
+  [2026-09-03] QA Engineer @ SunnyData (Remote) - remoteok
+           https://remoteOK.com/remote-jobs/remote-qa-engineer-sunnydata-1137300
+  [2026-09-02] Backend Engineer - Platform - Stacks | Ireland | Remote @ Grafana Labs (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/grafana-labs-backend-engineer-platform-stacks-ireland-remote
+  [2026-08-31] Agentic Python Engineer @ Evaboot (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/evaboot-agentic-python-engineer
+  [2026-08-31] Senior Software Engineer @ CircleCI (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/circleci-senior-software-engineer
+  [2026-08-30] AI Engineer Data APIs @ Benzinga (Remote) - remoteok
+           https://remoteOK.com/remote-jobs/remote-ai-engineer-data-apis-benzinga-1137224
+  [2026-08-29] Backend Software Engineer, PDP Experience @ Reddit (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/reddit-backend-software-engineer-pdp-experience
+  [2026-08-27] Principal Engineer @ The AI Whistleblower Initiative (Remote) - remoteok
+           https://remoteOK.com/remote-jobs/remote-principal-engineer-the-ai-whistleblower-initiative-1137162
+  [2026-08-27] AI Engineer - FDE (Forward Deployed Engineer) @ Databricks (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/databricks-ai-engineer-fde-forward-deployed-engineer
+  [2026-08-22] Engineering Manager, Experimentation @ LaunchDarkly (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/launchdarkly-engineering-manager-experimentation
+  [2026-08-18] Precast Design Engineer @ Fisher Associates, P.e., L.s., L.a., D. (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/fisher-associates-p-e-l-s-l-a-d-precast-design-engineer
+  [2026-08-17] Senior Software AI Engineer @ Collaboration.Ai (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/collaboration-ai-senior-software-ai-engineer
+  [2026-08-14] Senior Ruby on Rails Developer (AI-Augmented Engineering) @ Proxify AB (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/proxify-ab-senior-ruby-on-rails-developer-ai-augmented-engineering
+  [2026-08-12] Counsel, Product & Regulatory - Payments & AML @ Mercury (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/mercury-counsel-product-regulatory-payments-aml
+  [2026-08-05] FULL TIME: Software Engineer Position - React and Rest @ Yooli (Anywhere in the World) - weworkremotely
+           https://weworkremotely.com/remote-jobs/yooli-full-time-software-engineer-position-react-and-rest-1

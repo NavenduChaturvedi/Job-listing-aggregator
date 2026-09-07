@@ -1,0 +1,27 @@
+[
+  {"legal": "API Terms of Service: Please link back to the URL on Remote OK and mention Remote OK as a source."},
+  {
+    "slug": "remote-senior-python-developer-acme-123",
+    "id": "123",
+    "date": "2026-09-05T03:47:24+00:00",
+    "company": "Acme Corp",
+    "position": "Senior Python Developer",
+    "tags": ["python", "django", "backend"],
+    "location": "",
+    "description": "<p>We need a <strong>Python</strong> engineer to build APIs.</p>",
+    "url": "https://remoteOK.com/remote-jobs/remote-senior-python-developer-acme-123"
+  },
+  {
+    "slug": "remote-react-engineer-globex-456",
+    "id": "456",
+    "date": "2026-09-01T00:00:00+00:00",
+    "company": "Globex",
+    "position": "React Engineer",
+    "tags": ["react", "typescript"],
+    "location": "Europe",
+    "description": "Frontend role.",
+    "url": "https://remoteOK.com/remote-jobs/remote-react-engineer-globex-456",
+    "apply_url": "https://remoteOK.com/remote-jobs/remote-react-engineer-globex-456"
+  },
+  {"id": "789", "company": "NoTitle Inc"}
+]
